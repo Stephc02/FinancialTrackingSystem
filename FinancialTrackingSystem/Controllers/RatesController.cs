@@ -17,7 +17,7 @@ namespace FinancialTrackingSystem.Controllers
         private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<RatesController> _logger;
 
-        // Constructor to inject RatesService, IEventPublisher, and ILogger
+   
         public RatesController(RatesService ratesService, IEventPublisher eventPublisher, ILogger<RatesController> logger)
         {
             _ratesService = ratesService;
