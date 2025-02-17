@@ -14,7 +14,7 @@ public class PositionsService
 {
     private readonly ILogger<PositionsService> _logger;
     private readonly ServiceBusProcessor _processor;
-    private readonly Queue<Position> _positionsQueue; // In-memory queue for positions
+    private readonly Queue<Position> _positionsQueue; 
 
     public PositionsService(IConfiguration configuration, ILogger<PositionsService> logger)
     {
@@ -26,7 +26,7 @@ public class PositionsService
         var client = new ServiceBusClient(connectionString);
         _processor = client.CreateProcessor(topicName, subscriptionName, new ServiceBusProcessorOptions());
 
-        _positionsQueue = new Queue<Position>();  // Initialize in-memory queue
+        _positionsQueue = new Queue<Position>();  
     }
 
     public async Task StartListeningAsync()
@@ -85,8 +85,8 @@ public class PositionsService
             }
         }
 
-        // Optionally, persist updated positions to a database or external storage if required
-        // await SaveUpdatedPositionsAsync();
+     
+   
     }
 
     // Method to load positions from a CSV file
@@ -97,11 +97,11 @@ public class PositionsService
             using (var reader = new StreamReader(filePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                var records = csv.GetRecords<PositionCsvRecord>().ToList(); // Assuming PositionCsvRecord represents a row in your CSV file
+                var records = csv.GetRecords<PositionCsvRecord>().ToList(); 
 
                 foreach (var record in records)
                 {
-                    // Assuming PositionCsvRecord maps correctly to Position class
+                
                     var position = new Position(
                         record.InstrumentId,
                         record.Symbol,
@@ -120,14 +120,14 @@ public class PositionsService
         }
     }
 
-    // Method to get positions from the queue
+   
     public async Task<IEnumerable<Position>> GetPositionsFromQueue()
     {
         // Return positions from the in-memory queue
         return _positionsQueue.AsEnumerable();
     }
 
-    // Optional method to add a position to the queue
+  
     public void AddPosition(Position position)
     {
         _positionsQueue.Enqueue(position);
@@ -139,7 +139,7 @@ public class PositionsService
         return _positionsQueue;
     }
 
-    // Optionally, method to save updated positions to external storage (e.g., a database or file)
+  
     private Task SaveUpdatedPositionsAsync()
     {
         // Implement saving logic here if needed
@@ -147,7 +147,7 @@ public class PositionsService
     }
 }
 
-// Class representing a row in the CSV file
+
 public class PositionCsvRecord
 {
     public string InstrumentId { get; set; }
@@ -156,7 +156,7 @@ public class PositionCsvRecord
     public decimal InitialRate { get; set; }
 }
 
-// Position class for completeness
+
 public class Position
 {
     public string InstrumentId { get; set; }
@@ -172,10 +172,10 @@ public class Position
         Symbol = symbol;
         Quantity = quantity;
         InitialRate = initialRate;
-        CurrentRate = initialRate; // Assuming the initial rate is the current rate when the position is created
+        CurrentRate = initialRate; 
     }
 
-    // Method to update the position based on the new rate
+  
     public void UpdatePosition(decimal newRate)
     {
         CurrentRate = newRate;
