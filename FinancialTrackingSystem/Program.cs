@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;  // Add to import configuration
+using Microsoft.Extensions.Configuration;  
 using FinancialTrackingSystem.Services;
-using FinancialTrackingSystem.Interfaces;  // Import the interface namespace
-using Serilog;  // Import Serilog
-using Azure.Messaging.ServiceBus;  // Import Service Bus client library (if using Azure SDK)
+using FinancialTrackingSystem.Interfaces;  
+using Serilog;  
+using Azure.Messaging.ServiceBus;  
 
 namespace FinancialTrackingSystem
 {
@@ -15,8 +15,8 @@ namespace FinancialTrackingSystem
         {
             // Set up Serilog with file logging directed to "Logs" folder
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()  // Log to the console (optional)
-                .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)  // Log to the Logs folder
+                .WriteTo.Console() 
+                .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)  
                 .CreateLogger();
 
             var builder = WebApplication.CreateBuilder(args);
