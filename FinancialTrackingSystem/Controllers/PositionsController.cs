@@ -46,10 +46,10 @@ namespace FinancialTrackingSystem.Controllers
         {
             try
             {
-                // Hardcoded path for CSV upload (this can be changed)
+               
                 string filePath = @"C:\Users\User\Downloads\2025_01_29_Wakett_.NET_Developer_test_Positions.csv";
 
-                // Ensure this is an async method in PositionsService
+             
                 await _positionsService.LoadCsv(filePath);
 
                 return Ok("Positions uploaded successfully.");
